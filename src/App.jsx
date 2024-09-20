@@ -28,7 +28,6 @@ function App() {
   };
 
   const calculateIBW = () => {
-    // A basic formula for Ideal Body Weight (in kg) could be:
     const ibw = (height - 100) - ((height - 150) / 4);
     return `Ideal Body Weight (IBW): ${ibw.toFixed(2)} kg`;
   };
@@ -58,107 +57,116 @@ function App() {
       {/* Header */}
       <Header />
 
+      {/* Additional div below the header */}
+      <div className="bg-gradient-to-r from-indigo-500 to-blue-500 p-4 text-white text-center">
+        Stay Healthy, Stay Informed
+      </div>
+
       {/* Main Section */}
       <main className="flex-grow container mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4">Enter Your Metrics</h2>
+        {/* Centered container for the metrics */}
+        <div className="flex flex-col items-center bg-white shadow-lg p-6 rounded-lg max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-gray-700">Medical Metric Calculator</h2>
 
-        {/* BMI Calculation */}
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">BMI Calculation</h3>
-          <label className="block mb-2 font-semibold">Height (cm)</label>
-          <input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your height in cm"
-          />
-          <label className="block mb-2 font-semibold">Weight (kg)</label>
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your weight in kg"
-          />
+          {/* BMI Calculation */}
+          <div className="w-full mb-6">
+            <h3 className="font-semibold text-lg mb-2">BMI Calculation</h3>
+            <label className="block mb-2 font-semibold">Height (cm)</label>
+            <input
+              type="number"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your height in cm"
+            />
+            <label className="block mb-2 font-semibold">Weight (kg)</label>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your weight in kg"
+            />
+          </div>
+
+          {/* WHR Calculation */}
+          <div className="w-full mb-6">
+            <h3 className="font-semibold text-lg mb-2">Waist-to-Hip Ratio (WHR) Calculation</h3>
+            <label className="block mb-2 font-semibold">Waist (cm)</label>
+            <input
+              type="number"
+              value={waist}
+              onChange={(e) => setWaist(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your waist circumference in cm"
+            />
+            <label className="block mb-2 font-semibold">Hip (cm)</label>
+            <input
+              type="number"
+              value={hip}
+              onChange={(e) => setHip(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your hip circumference in cm"
+            />
+          </div>
+
+          {/* IBW Calculation */}
+          <div className="w-full mb-6">
+            <h3 className="font-semibold text-lg mb-2">Ideal Body Weight (IBW)</h3>
+            <p className="text-sm text-gray-600">Calculated automatically based on height.</p>
+          </div>
+
+          {/* HRR Calculation */}
+          <div className="w-full mb-6">
+            <h3 className="font-semibold text-lg mb-2">Heart Rate Reserve (HRR)</h3>
+            <label className="block mb-2 font-semibold">Max Heart Rate (bpm)</label>
+            <input
+              type="number"
+              value={maxHeartRate}
+              onChange={(e) => setMaxHeartRate(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your max heart rate"
+            />
+            <label className="block mb-2 font-semibold">Resting Heart Rate (bpm)</label>
+            <input
+              type="number"
+              value={restingHeartRate}
+              onChange={(e) => setRestingHeartRate(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your resting heart rate"
+            />
+          </div>
+
+          {/* Calories Calculation */}
+          <div className="w-full mb-6">
+            <h3 className="font-semibold text-lg mb-2">Caloric Needs Calculation</h3>
+            <label className="block mb-2 font-semibold">Calories (kcal/day)</label>
+            <input
+              type="number"
+              value={calories}
+              onChange={(e) => setCalories(e.target.value)}
+              className="w-full p-2 border rounded"
+              placeholder="Enter your caloric needs"
+            />
+          </div>
+
+          {/* Calculate Button */}
+          <button
+            onClick={calculateMetrics}
+            className="bg-green-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-green-600 transition-all duration-300"
+          >
+            Calculate and List Results
+          </button>
+
+          {/* Results Section */}
+          <ul className="mt-6 space-y-2 w-full">
+            {results.map((result, index) => (
+              <li key={index} className="p-4 bg-gray-100 text-center rounded shadow-md">
+                {result}
+              </li>
+            ))}
+          </ul>
         </div>
-
-        {/* WHR Calculation */}
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">Waist-to-Hip Ratio (WHR) Calculation</h3>
-          <label className="block mb-2 font-semibold">Waist (cm)</label>
-          <input
-            type="number"
-            value={waist}
-            onChange={(e) => setWaist(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your waist circumference in cm"
-          />
-          <label className="block mb-2 font-semibold">Hip (cm)</label>
-          <input
-            type="number"
-            value={hip}
-            onChange={(e) => setHip(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your hip circumference in cm"
-          />
-        </div>
-
-        {/* IBW Calculation */}
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">Ideal Body Weight (IBW)</h3>
-          <p>Calculated automatically based on height for simplicity</p>
-        </div>
-
-        {/* HRR Calculation */}
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">Heart Rate Reserve (HRR)</h3>
-          <label className="block mb-2 font-semibold">Max Heart Rate (bpm)</label>
-          <input
-            type="number"
-            value={maxHeartRate}
-            onChange={(e) => setMaxHeartRate(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your max heart rate"
-          />
-          <label className="block mb-2 font-semibold">Resting Heart Rate (bpm)</label>
-          <input
-            type="number"
-            value={restingHeartRate}
-            onChange={(e) => setRestingHeartRate(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your resting heart rate"
-          />
-        </div>
-
-        {/* Calories Calculation */}
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">Caloric Needs Calculation</h3>
-          <label className="block mb-2 font-semibold">Calories (kcal/day)</label>
-          <input
-            type="number"
-            value={calories}
-            onChange={(e) => setCalories(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your caloric needs"
-          />
-        </div>
-
-        <button
-          onClick={calculateMetrics}
-          className="bg-green-500 text-white p-3 rounded w-full mt-4 font-semibold"
-        >
-          Calculate and List Results
-        </button>
-
-        {/* Results Section */}
-        <ul className="mt-6 space-y-2">
-          {results.map((result, index) => (
-            <li key={index} className="p-4 bg-gray-200 rounded">
-              {result}
-            </li>
-          ))}
-        </ul>
       </main>
 
       {/* Footer */}
