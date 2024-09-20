@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { useState } from 'react';
 
 function App() {
   // States for different metrics inputs
@@ -70,9 +70,16 @@ function App() {
       {/* Header */}
       <Header />
 
-      {/* Additional div below the header */}
-      <div className="bg-gradient-to-r from-indigo-500 to-blue-500 p-4 text-white text-center">
-        Stay Healthy, Stay Informed
+      {/* Div below the header with background image */}
+      <div
+        className="bg-cover bg-center h-64"
+        style={{
+          backgroundImage: `url('/assets/images/medical.jpg')`,
+        }}
+      >
+        <div className="flex justify-center items-center h-full text-white bg-black bg-opacity-50">
+          <h2 className="text-4xl font-bold">Stay Healthy, Stay Informed</h2>
+        </div>
       </div>
 
       {/* Main Section */}
