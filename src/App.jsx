@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -8,7 +9,6 @@ function App() {
   const [weight, setWeight] = useState('');
   const [waist, setWaist] = useState('');
   const [hip, setHip] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [age, setAge] = useState('');
   const [calories, setCalories] = useState('');
   const [restingHeartRate, setRestingHeartRate] = useState('');
@@ -50,6 +50,19 @@ function App() {
     const caloricNeeds = calculateCalories();
 
     setResults([bmi, whr, ibw, hrr, caloricNeeds]);
+  };
+
+  // Function to reset inputs and results
+  const resetMetrics = () => {
+    setHeight('');
+    setWeight('');
+    setWaist('');
+    setHip('');
+    setAge('');
+    setCalories('');
+    setRestingHeartRate('');
+    setMaxHeartRate('');
+    setResults([]);
   };
 
   return (
@@ -150,13 +163,22 @@ function App() {
             />
           </div>
 
-          {/* Calculate Button */}
-          <button
-            onClick={calculateMetrics}
-            className="bg-green-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-green-600 transition-all duration-300"
-          >
-            Calculate and List Results
-          </button>
+          {/* Calculate or Reset Button */}
+          {results.length === 0 ? (
+            <button
+              onClick={calculateMetrics}
+              className="bg-green-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-green-600 transition-all duration-300"
+            >
+              Calculate and List Results
+            </button>
+          ) : (
+            <button
+              onClick={resetMetrics}
+              className="bg-red-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-red-600 transition-all duration-300"
+            >
+              Reset
+            </button>
+          )}
 
           {/* Results Section */}
           <ul className="mt-6 space-y-2 w-full">
