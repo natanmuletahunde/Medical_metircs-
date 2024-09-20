@@ -66,17 +66,19 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
+    <div className="flex flex-col min-h-screen">
       {/* Header */}
       <Header />
 
       {/* Div below the header with background image */}
       <div
-        className="bg-cover bg-center h-96"
-        style={{
-          backgroundImage: `url('https://dashboardfox.com/wp-content/uploads/2020/07/healthcaremetrics.facebook-ad-link.jpg')`,
-        }}
-      ></div>
+  className="bg-cover bg-center h-96" 
+  style={{
+    backgroundImage: `url('https://dashboardfox.com/wp-content/uploads/2020/07/healthcaremetrics.facebook-ad-link.jpg')`,
+  }}
+>
+</div>
+
 
       {/* Main Section */}
       <main className="flex-grow container mx-auto p-4">
@@ -170,14 +172,14 @@ function App() {
           {results.length === 0 ? (
             <button
               onClick={calculateMetrics}
-              className="bg-blue-900 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-blue-700 transition-all duration-300"
+              className="bg-green-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-green-600 transition-all duration-300"
             >
               Calculate and List Results
             </button>
           ) : (
             <button
               onClick={resetMetrics}
-              className="bg-red-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-red-600 transition-all duration-300"
+              className="to-blue-950 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-red-600 transition-all duration-300"
             >
               Reset
             </button>
