@@ -1,107 +1,146 @@
 import { useState } from 'react';
-import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
-  const [bodyFat, setBodyFat] = useState('');
-  const [whr, setWhr] = useState('');
+  // States for different metrics inputs
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [waist, setWaist] = useState('');
+  const [hip, setHip] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [age, setAge] = useState('');
   const [calories, setCalories] = useState('');
-  const [ibw, setIbw] = useState('');
-  const [hrr, setHrr] = useState('');
-  const [nutrition, setNutrition] = useState('');
+  const [restingHeartRate, setRestingHeartRate] = useState('');
+  const [maxHeartRate, setMaxHeartRate] = useState('');
+
   const [results, setResults] = useState([]);
 
-  const calculateMetrics = () => {
-    const bodyFatPercentage = `Body Fat Percentage: ${bodyFat}%`;
-    const whrCalculation = `Waist-to-Hip Ratio (WHR): ${whr}`;
-    const caloricNeeds = `Caloric Needs: ${calories} kcal/day`;
-    const idealBodyWeight = `Ideal Body Weight (IBW): ${ibw} kg`;
-    const heartRateReserve = `Heart Rate Reserve (HRR): ${hrr} bpm`;
-    const nutritionalNeeds = `Nutritional Needs: ${nutrition} g/day`;
+  // Functions to calculate the different metrics
+  const calculateBMI = () => {
+    const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+    return `BMI: ${bmi}`;
+  };
 
-    setResults([
-      bodyFatPercentage,
-      whrCalculation,
-      caloricNeeds,
-      idealBodyWeight,
-      heartRateReserve,
-      nutritionalNeeds,
-    ]);
+  const calculateWHR = () => {
+    const whr = (waist / hip).toFixed(2);
+    return `Waist-to-Hip Ratio (WHR): ${whr}`;
+  };
+
+  const calculateIBW = () => {
+    // A basic formula for Ideal Body Weight (in kg) could be:
+    const ibw = (height - 100) - ((height - 150) / 4);
+    return `Ideal Body Weight (IBW): ${ibw.toFixed(2)} kg`;
+  };
+
+  const calculateHRR = () => {
+    const hrr = maxHeartRate - restingHeartRate;
+    return `Heart Rate Reserve (HRR): ${hrr} bpm`;
+  };
+
+  const calculateCalories = () => {
+    return `Caloric Needs: ${calories} kcal/day`;
+  };
+
+  // Function to handle all calculations
+  const calculateMetrics = () => {
+    const bmi = calculateBMI();
+    const whr = calculateWHR();
+    const ibw = calculateIBW();
+    const hrr = calculateHRR();
+    const caloricNeeds = calculateCalories();
+
+    setResults([bmi, whr, ibw, hrr, caloricNeeds]);
   };
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="bg-blue-500 text-white p-4 text-center text-3xl font-bold">
-        Medical Metric Calculator
-      </header>
+      <Header />
 
       {/* Main Section */}
       <main className="flex-grow container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Enter Your Metrics</h2>
 
+        {/* BMI Calculation */}
         <div className="mb-4">
-          <label className="block mb-2 font-semibold">Body Fat Percentage (%)</label>
+          <h3 className="font-semibold mb-2">BMI Calculation</h3>
+          <label className="block mb-2 font-semibold">Height (cm)</label>
           <input
             type="number"
-            value={bodyFat}
-            onChange={(e) => setBodyFat(e.target.value)}
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter your body fat percentage"
+            placeholder="Enter your height in cm"
+          />
+          <label className="block mb-2 font-semibold">Weight (kg)</label>
+          <input
+            type="number"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="Enter your weight in kg"
           />
         </div>
 
+        {/* WHR Calculation */}
         <div className="mb-4">
-          <label className="block mb-2 font-semibold">Waist-to-Hip Ratio (WHR)</label>
+          <h3 className="font-semibold mb-2">Waist-to-Hip Ratio (WHR) Calculation</h3>
+          <label className="block mb-2 font-semibold">Waist (cm)</label>
           <input
             type="number"
-            value={whr}
-            onChange={(e) => setWhr(e.target.value)}
+            value={waist}
+            onChange={(e) => setWaist(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter your WHR"
+            placeholder="Enter your waist circumference in cm"
+          />
+          <label className="block mb-2 font-semibold">Hip (cm)</label>
+          <input
+            type="number"
+            value={hip}
+            onChange={(e) => setHip(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="Enter your hip circumference in cm"
           />
         </div>
 
+        {/* IBW Calculation */}
         <div className="mb-4">
-          <label className="block mb-2 font-semibold">Caloric Needs (kcal/day)</label>
+          <h3 className="font-semibold mb-2">Ideal Body Weight (IBW)</h3>
+          <p>Calculated automatically based on height for simplicity</p>
+        </div>
+
+        {/* HRR Calculation */}
+        <div className="mb-4">
+          <h3 className="font-semibold mb-2">Heart Rate Reserve (HRR)</h3>
+          <label className="block mb-2 font-semibold">Max Heart Rate (bpm)</label>
+          <input
+            type="number"
+            value={maxHeartRate}
+            onChange={(e) => setMaxHeartRate(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="Enter your max heart rate"
+          />
+          <label className="block mb-2 font-semibold">Resting Heart Rate (bpm)</label>
+          <input
+            type="number"
+            value={restingHeartRate}
+            onChange={(e) => setRestingHeartRate(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="Enter your resting heart rate"
+          />
+        </div>
+
+        {/* Calories Calculation */}
+        <div className="mb-4">
+          <h3 className="font-semibold mb-2">Caloric Needs Calculation</h3>
+          <label className="block mb-2 font-semibold">Calories (kcal/day)</label>
           <input
             type="number"
             value={calories}
             onChange={(e) => setCalories(e.target.value)}
             className="w-full p-2 border rounded"
             placeholder="Enter your caloric needs"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2 font-semibold">Ideal Body Weight (kg)</label>
-          <input
-            type="number"
-            value={ibw}
-            onChange={(e) => setIbw(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your ideal body weight"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2 font-semibold">Heart Rate Reserve (HRR) (bpm)</label>
-          <input
-            type="number"
-            value={hrr}
-            onChange={(e) => setHrr(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your heart rate reserve"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-2 font-semibold">Nutritional Needs (g/day)</label>
-          <input
-            type="number"
-            value={nutrition}
-            onChange={(e) => setNutrition(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter your nutritional needs"
           />
         </div>
 
@@ -123,9 +162,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-indigo-600 text-white text-center p-4">
-        &copy; 2024 Medical Metric - All Rights Reserved
-      </footer>
+      <Footer />
     </div>
   );
 }
