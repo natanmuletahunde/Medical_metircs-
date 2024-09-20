@@ -179,7 +179,7 @@ function App() {
           ) : (
             <button
               onClick={resetMetrics}
-              className="bg-red-500 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-red-600 transition-all duration-300"
+              className="to-blue-950 text-white p-3 rounded w-full mt-4 font-semibold hover:bg-red-600 transition-all duration-300"
             >
               Reset
             </button>
