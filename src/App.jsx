@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import Header from './components/Header';
-import Footer from './components/Footer';
 import { useState } from 'react';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 function App() {
   // States for different metrics inputs
@@ -72,15 +72,13 @@ function App() {
 
       {/* Div below the header with background image */}
       <div
-        className="bg-cover bg-center h-64"
-        style={{
-          backgroundImage: `url('/assets/images/medical.jpg')`,
-        }}
-      >
-        <div className="flex justify-center items-center h-full text-white bg-black bg-opacity-50">
-          <h2 className="text-4xl font-bold">Stay Healthy, Stay Informed</h2>
-        </div>
-      </div>
+  className="bg-cover bg-center h-96" 
+  style={{
+    backgroundImage: `url('https://dashboardfox.com/wp-content/uploads/2020/07/healthcaremetrics.facebook-ad-link.jpg')`,
+  }}
+>
+</div>
+
 
       {/* Main Section */}
       <main className="flex-grow container mx-auto p-4">
